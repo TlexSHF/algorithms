@@ -43,7 +43,7 @@ public class RingArrayQueue<T> {
     }
 
     public T peek() {
-
+        return null;
     }
 
     public void resize() {

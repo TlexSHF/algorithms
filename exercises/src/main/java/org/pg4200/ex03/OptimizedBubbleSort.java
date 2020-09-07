@@ -2,7 +2,7 @@ package org.pg4200.ex03;
 
 import java.util.Comparator;
 
-public class OptimizedBubbleSort{
+public class OptimizedBubbleSort<T>{
 
     public <T> int sort(T[] array, Comparator<T> comparator, boolean optimized) {
         //Sort the input array based on a given Comparator.
@@ -10,11 +10,11 @@ public class OptimizedBubbleSort{
 
         boolean swapped;
         int n = array.length;
-        int lastSwapPos = n-1;
-        int tempSwap = n-1;
-        int swaps = 0;
+        int target = n-1;
+        int lastSwap = n-1;
+        //int swaps = 0;
+        int comparisons = 0;
 
-        if(optimized) {
 
             if(n < 1){
                 return 0;
@@ -23,27 +23,27 @@ public class OptimizedBubbleSort{
             swapped = true;
             while(swapped) {
 
-                swapped = false;
-                for(int i = 0; i < lastSwapPos; i++) {
+                if(optimized) {
+                    target = lastSwap;
+                }
 
+
+                swapped = false;
+                for(int i = 0; i < target; i++) {
+
+                    comparisons++;
                     if(comparator.compare(array[i], array[i+1]) > 0){
                         T temp = array[i];
                         array[i] = array[i+1];
                         array[i+1] = temp;
 
-                        tempSwap = i;
+                        lastSwap = i;
                         swapped = true;
-                        swaps++;
+                        //swaps++;
                     }
-
-
                 }
-
-                lastSwapPos = tempSwap;
             }
 
-        }
-
-        return swaps;
+        return comparisons;
     }
 }
